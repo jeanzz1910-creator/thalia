@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Thalia ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #8B0000, #B22222, #FF1493);
+    color: white;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Pantallas */
+.screen {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.active {
+    display: flex;
+}
+
+h1, h2 {
+    animation: fadeIn 2s ease;
+    max-width: 800px;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: white;
+    color: red;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 3;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: pink;
+}
+
+/* Contenedor de corazones */
+#hearts-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart {
+    position: absolute;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(1); opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+
+@keyframes burst {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.footer {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts-container"></div>
+
+<!-- Pantalla 1 -->
+<div class="screen active" id="screen1">
+    <h1>💌 Tengo un mensaje para ti 💌</h1>
+    <button onclick="nextScreen(2)">Continuar</button>
+    <div class="footer">De Jean para Thalia ❤️</div>
+</div>
+
+<!-- Pantalla 2 -->
+<div class="screen" id="screen2">
+    <h2>
+        Mi novia Thalia, te amo tanto que me haces sentir amado, feliz, tranquilo y acompañado cada día.
+        Gracias por ser tan gran persona conmigo mi amor ❤️
+    </h2>
+    <button onclick="nextScreen(3)">Continuar</button>
+    <div class="footer">De Jean para Thalia ❤️</div>
+</div>
+
+<!-- Pantalla 3 -->
+<div class="screen" id="screen3">
+    <h1>¿Quieres ser mi San Valentín? 💘</h1>
+    <button onclick="celebrate()">Sí ❤️</button>
+    <button onclick="celebrate()">Obvio sí 💕</button>
+    <div class="footer">De Jean para Thalia ❤️</div>
+</div>
+
+<script>
+const container = document.getElementById("hearts-container");
+
+let celebrationActive = false; // bandera para evitar múltiples activaciones
+let celebrationInterval;
+
+/* Cambiar pantallas */
+function nextScreen(screenNumber) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + screenNumber).classList.add('active');
+}
+
+/* Corazones normales suaves */
+function createFloatingHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = Math.random() > 0.5 ? "❤️" : "🌹";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    heart.style.animationDuration = (5 + Math.random() * 3) + "s";
+    container.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createFloatingHeart, 500);
+
+
+function celebrate() {
+
+    if (celebrationActive) return;
+
+    celebrationActive = true;
+
+    // Fondo más romántico
+    document.body.style.background = "linear-gradient(135deg, #FF1493, #FF69B4, #FF0000)";
+    
+    // Zoom suave
+    document.body.style.transform = "scale(1.05)";
+    setTimeout(() => {
+        document.body.style.transform = "scale(1)";
+    }, 400);
+
+    // Lluvia intensa pero optimizada
+    celebrationInterval = setInterval(() => {
+        createCelebrationHeart();
+        createCelebrationHeart();
+        createCelebrationFlower();
+    }, 120); // más frecuencia
+}
+
+/* Corazones grandes */
+function createCelebrationHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (25 + Math.random() * 40) + "px";
+    heart.style.animationDuration = "3s";
+    container.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 3000);
+}
+
+/* Flores románticas */
+function createCelebrationFlower() {
+    const flower = document.createElement("div");
+    flower.className = "heart";
+    flower.innerHTML = "🌹";
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.fontSize = (20 + Math.random() * 35) + "px";
+    flower.style.animationDuration = "4s";
+    container.appendChild(flower);
+
+    setTimeout(() => flower.remove(), 4000);
+}
+
+</script>
+
+
+</body>
+</html>
